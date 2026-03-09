@@ -74,8 +74,8 @@ Over time, people came to believe it was the acid in lemons that killed bacteria
 # Styling signals "wrong understanding": warning palette + dashed causal arrows
 pgm = daft.PGM(dpi=150, alternate_style="outer")
 
-# Acid (top-left): amber/orange — the mistaken cause
-pgm.add_node("acid", "Acid", 1, 1.2, aspect=2.2, scale=1.1,
+# Acid (top-left): amber/orange — the mistaken cause (y lowered to avoid title overlap)
+pgm.add_node("acid", "Acid", 1, 0.75, aspect=2.2, scale=1.1,
              plot_params={
                  'facecolor': '#FFF3E0',
                  'edgecolor': '#E65100',
@@ -84,7 +84,7 @@ pgm.add_node("acid", "Acid", 1, 1.2, aspect=2.2, scale=1.1,
              },
              label_params={'fontweight': 'medium', 'color': '#BF360C'})
 # Bacteria in Food (middle): muted red — wrong mechanism
-pgm.add_node("bacteria", "Bacteria in Food", 2, 0.5, aspect=2.4, scale=1.1,
+pgm.add_node("bacteria", "Bacteria in Food", 2, 0.2, aspect=2.4, scale=1.1,
              plot_params={
                  'facecolor': '#FFEBEE',
                  'edgecolor': '#C62828',
@@ -93,7 +93,7 @@ pgm.add_node("bacteria", "Bacteria in Food", 2, 0.5, aspect=2.4, scale=1.1,
              },
              label_params={'fontweight': 'medium', 'color': '#B71C1C'})
 # Scurvy (bottom-right): pale red — wrongly attributed outcome
-pgm.add_node("scurvy", "Scurvy", 3.25, -0.2, aspect=2.2, scale=1.1,
+pgm.add_node("scurvy", "Scurvy", 3.25, -0.35, aspect=2.2, scale=1.1,
              plot_params={
                  'facecolor': '#FCE4EC',
                  'edgecolor': '#AD1457',
@@ -107,7 +107,9 @@ pgm.add_edge("acid", "bacteria", plot_params={'color': '#D84315', 'linewidth': 2
 pgm.add_edge("bacteria", "scurvy", plot_params={'color': '#C62828', 'linewidth': 2, 'linestyle': '--'})
 
 pgm.render()
-plt.suptitle("Updated Bacterial Theory (Late 19th Century) — incorrect", fontsize=12, fontweight='medium', y=1.02, color='#BF360C')
+plt.subplots_adjust(top=0.78)
+plt.suptitle("Updated Bacterial Theory (Late 19th Century) — incorrect", fontsize=12, fontweight='medium', y=0.98, color='#BF360C')
+plt.tight_layout()
 plt.show()
 ```
 
@@ -121,41 +123,45 @@ In 1928, the true mechanism was discovered — it was Vitamin C (ascorbic acid) 
 #| label: dag-3-1928
 #| echo: false
 
-# Create a DAG showing the 1928 understanding: Vitamin C → Collagen Synthesis → Scurvy
+# Simplified Modern Understanding: Vitamin C → Collagen Synthesis → Scurvy (with arrows, diagonal layout)
 pgm = daft.PGM(dpi=150, alternate_style="outer")
 
-# Vitamin C: soft blue (nutrient, scientific)
-pgm.add_node("vitamin_c", "Vitamin C", 1, 1, aspect=2.2, scale=1.1,
+# Diagonal layout, more spacing for longer arrows; y-values lower so title doesn't overlap
+# Vitamin C: cool blue (cause)
+pgm.add_node("vitamin_c", "Vitamin C", 0.5, 0.7, aspect=2.2, scale=1.15,
              plot_params={
                  'facecolor': '#E3F2FD',
                  'edgecolor': '#1565C0',
                  'linewidth': 2.5,
                  'alpha': 1.0,
              },
-             label_params={'fontweight': 'medium'})
-# Collagen Synthesis: middle step (mechanism)
-pgm.add_node("collagen", "Collagen Synthesis", 2.1, 1, aspect=2.4, scale=1.1,
+             label_params={'fontweight': 'medium', 'color': '#0D47A1'})
+# Collagen Synthesis: soft teal (mechanism)
+pgm.add_node("collagen", "Collagen Synthesis", 2, 0.25, aspect=2.4, scale=1.15,
              plot_params={
-                 'facecolor': '#E8EAF6',
-                 'edgecolor': '#3949AB',
+                 'facecolor': '#E0F2F1',
+                 'edgecolor': '#00695C',
                  'linewidth': 2.5,
                  'alpha': 1.0,
              },
-             label_params={'fontweight': 'medium'})
-# Scurvy: outcome (deficiency leads to disease)
-pgm.add_node("scurvy", "Scurvy", 3.25, 1, aspect=2.2, scale=1.1,
+             label_params={'fontweight': 'medium', 'color': '#004D40'})
+# Scurvy: muted green (outcome)
+pgm.add_node("scurvy", "Scurvy", 3.5, -0.2, aspect=2.2, scale=1.15,
              plot_params={
-                 'facecolor': '#D4EDDA',
-                 'edgecolor': '#1B5E20',
+                 'facecolor': '#E8F5E9',
+                 'edgecolor': '#2E7D32',
                  'linewidth': 2.5,
                  'alpha': 1.0,
              },
-             label_params={'fontweight': 'medium'})
-pgm.add_edge("vitamin_c", "collagen",
-             plot_params={'color': '#37474F', 'linewidth': 2})
-pgm.add_edge("collagen", "scurvy",
-             plot_params={'color': '#37474F', 'linewidth': 2})
+             label_params={'fontweight': 'medium', 'color': '#1B5E20'})
+
+# Directed edges for causal flow
+pgm.add_edge("vitamin_c", "collagen", plot_params={'color': '#37474F', 'linewidth': 2.5})
+pgm.add_edge("collagen", "scurvy", plot_params={'color': '#37474F', 'linewidth': 2.5})
 
 pgm.render()
+plt.subplots_adjust(top=0.75)
+plt.suptitle("Simplified Modern Understanding (1930s onwards)", fontsize=12, fontweight='medium', y=0.97, color='#263238')
+plt.tight_layout()
 plt.show()
 ```
