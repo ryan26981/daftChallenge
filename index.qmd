@@ -57,7 +57,6 @@ pgm.add_edge("lemons", "scurvy_prevention",
              plot_params={'color': '#37474F', 'linewidth': 2})
 
 pgm.render()
-plt.tight_layout()
 plt.show()
 ```
 
@@ -109,7 +108,6 @@ pgm.add_edge("bacteria", "scurvy", plot_params={'color': '#C62828', 'linewidth':
 
 pgm.render()
 plt.suptitle("Updated Bacterial Theory (Late 19th Century) — incorrect", fontsize=12, fontweight='medium', y=1.02, color='#BF360C')
-plt.tight_layout()
 plt.show()
 ```
 
@@ -123,7 +121,7 @@ In 1928, the true mechanism was discovered — it was Vitamin C (ascorbic acid) 
 #| label: dag-3-1928
 #| echo: false
 
-# Create a DAG showing the 1928 understanding: Vitamin C → Scurvy Prevention
+# Create a DAG showing the 1928 understanding: Vitamin C → Collagen Synthesis → Scurvy
 pgm = daft.PGM(dpi=150, alternate_style="outer")
 
 # Vitamin C: soft blue (nutrient, scientific)
@@ -135,8 +133,17 @@ pgm.add_node("vitamin_c", "Vitamin C", 1, 1, aspect=2.2, scale=1.1,
                  'alpha': 1.0,
              },
              label_params={'fontweight': 'medium'})
-# Scurvy Prevention: soft teal-green (health outcome, professional)
-pgm.add_node("scurvy_prevention", "Scurvy\nPrevention", 3.25, 1, aspect=2.2, scale=1.1,
+# Collagen Synthesis: middle step (mechanism)
+pgm.add_node("collagen", "Collagen Synthesis", 2.1, 1, aspect=2.4, scale=1.1,
+             plot_params={
+                 'facecolor': '#E8EAF6',
+                 'edgecolor': '#3949AB',
+                 'linewidth': 2.5,
+                 'alpha': 1.0,
+             },
+             label_params={'fontweight': 'medium'})
+# Scurvy: outcome (deficiency leads to disease)
+pgm.add_node("scurvy", "Scurvy", 3.25, 1, aspect=2.2, scale=1.1,
              plot_params={
                  'facecolor': '#D4EDDA',
                  'edgecolor': '#1B5E20',
@@ -144,10 +151,11 @@ pgm.add_node("scurvy_prevention", "Scurvy\nPrevention", 3.25, 1, aspect=2.2, sca
                  'alpha': 1.0,
              },
              label_params={'fontweight': 'medium'})
-pgm.add_edge("vitamin_c", "scurvy_prevention",
+pgm.add_edge("vitamin_c", "collagen",
+             plot_params={'color': '#37474F', 'linewidth': 2})
+pgm.add_edge("collagen", "scurvy",
              plot_params={'color': '#37474F', 'linewidth': 2})
 
 pgm.render()
-plt.tight_layout()
 plt.show()
 ```
