@@ -100,12 +100,33 @@ Your task is to recreate these three historical DAGs using DAFT, making them vis
 #| label: dag-1-1747
 #| echo: true
 
-# TODO: Replace this placeholder with your DAFT code
 # Create a DAG showing the 1747 understanding: Lemons → Scurvy Prevention
+pgm = daft.PGM(dpi=150, alternate_style="outer")
 
-# Your code here - recreate the DAG from the reference image
-# Use DAFT to create nodes and edges that match the visual structure
-# Customize colors and styling to make it professional
+# Lemons: warm cream/amber (citrus, refined)
+pgm.add_node("lemons", "Lemons", 1, 1, aspect=2.2, scale=1.1,
+             plot_params={
+                 'facecolor': '#FDF4E3',
+                 'edgecolor': '#B8860B',
+                 'linewidth': 2.5,
+                 'alpha': 1.0,
+             },
+             label_params={'fontweight': 'medium'})
+# Scurvy Prevention: soft teal-green (health outcome, professional)
+pgm.add_node("scurvy_prevention", "Scurvy\nPrevention", 3.25, 1, aspect=2.2, scale=1.1,
+             plot_params={
+                 'facecolor': '#D4EDDA',
+                 'edgecolor': '#1B5E20',
+                 'linewidth': 2.5,
+                 'alpha': 1.0,
+             },
+             label_params={'fontweight': 'medium'})
+pgm.add_edge("lemons", "scurvy_prevention",
+             plot_params={'color': '#37474F', 'linewidth': 2})
+
+pgm.render()
+plt.tight_layout()
+plt.show()
 ```
 
 ### DAG 2: The Misguided Belief (Wrong Understanding)
@@ -121,12 +142,46 @@ Your task is to recreate these three historical DAGs using DAFT, making them vis
 #| label: dag-2-misguided
 #| echo: true
 
-# TODO: Replace this placeholder with your DAFT code
-# Create a DAG showing the misguided belief: Acid → Bacteria Death → Scurvy Prevention
+# Updated Bacterial Theory (Late 19th Century): Acid → Bacteria in Food → Scurvy
+# Styling signals "wrong understanding": warning palette + dashed causal arrows
+pgm = daft.PGM(dpi=150, alternate_style="outer")
 
-# Your code here - recreate the DAG from the reference image
-# This DAG should show the incorrect causal chain
-# Use different colors or styling to indicate this is the wrong understanding
+# Acid (top-left): amber/orange — the mistaken cause
+pgm.add_node("acid", "Acid", 1, 1.2, aspect=2.2, scale=1.1,
+             plot_params={
+                 'facecolor': '#FFF3E0',
+                 'edgecolor': '#E65100',
+                 'linewidth': 2.5,
+                 'alpha': 1.0,
+             },
+             label_params={'fontweight': 'medium', 'color': '#BF360C'})
+# Bacteria in Food (middle): muted red — wrong mechanism
+pgm.add_node("bacteria", "Bacteria in Food", 2, 0.5, aspect=2.4, scale=1.1,
+             plot_params={
+                 'facecolor': '#FFEBEE',
+                 'edgecolor': '#C62828',
+                 'linewidth': 2.5,
+                 'alpha': 1.0,
+             },
+             label_params={'fontweight': 'medium', 'color': '#B71C1C'})
+# Scurvy (bottom-right): pale red — wrongly attributed outcome
+pgm.add_node("scurvy", "Scurvy", 3.25, -0.2, aspect=2.2, scale=1.1,
+             plot_params={
+                 'facecolor': '#FCE4EC',
+                 'edgecolor': '#AD1457',
+                 'linewidth': 2.5,
+                 'alpha': 1.0,
+             },
+             label_params={'fontweight': 'medium', 'color': '#880E4F'})
+
+# Dashed edges to show the causal chain is incorrect
+pgm.add_edge("acid", "bacteria", plot_params={'color': '#D84315', 'linewidth': 2, 'linestyle': '--'})
+pgm.add_edge("bacteria", "scurvy", plot_params={'color': '#C62828', 'linewidth': 2, 'linestyle': '--'})
+
+pgm.render()
+plt.suptitle("Updated Bacterial Theory (Late 19th Century) — incorrect", fontsize=12, fontweight='medium', y=1.02, color='#BF360C')
+plt.tight_layout()
+plt.show()
 ```
 
 ### DAG 3: The 1928 Understanding (Complete and Correct)
