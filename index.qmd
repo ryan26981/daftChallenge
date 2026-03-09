@@ -197,12 +197,33 @@ plt.show()
 #| label: dag-3-1928
 #| echo: true
 
-# TODO: Replace this placeholder with your DAFT code
 # Create a DAG showing the 1928 understanding: Vitamin C → Scurvy Prevention
+pgm = daft.PGM(dpi=150, alternate_style="outer")
 
-# Your code here - recreate the DAG from the reference image
-# This should be the most complete and accurate representation
-# Use professional styling that would be suitable for a scientific publication
+# Vitamin C: soft blue (nutrient, scientific)
+pgm.add_node("vitamin_c", "Vitamin C", 1, 1, aspect=2.2, scale=1.1,
+             plot_params={
+                 'facecolor': '#E3F2FD',
+                 'edgecolor': '#1565C0',
+                 'linewidth': 2.5,
+                 'alpha': 1.0,
+             },
+             label_params={'fontweight': 'medium'})
+# Scurvy Prevention: soft teal-green (health outcome, professional)
+pgm.add_node("scurvy_prevention", "Scurvy\nPrevention", 3.25, 1, aspect=2.2, scale=1.1,
+             plot_params={
+                 'facecolor': '#D4EDDA',
+                 'edgecolor': '#1B5E20',
+                 'linewidth': 2.5,
+                 'alpha': 1.0,
+             },
+             label_params={'fontweight': 'medium'})
+pgm.add_edge("vitamin_c", "scurvy_prevention",
+             plot_params={'color': '#37474F', 'linewidth': 2})
+
+pgm.render()
+plt.tight_layout()
+plt.show()
 ```
 
 ## Student Requirements Section: Mastering DAFT Visualization {#student-analysis-section}
