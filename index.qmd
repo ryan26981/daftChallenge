@@ -2,7 +2,12 @@
 title: "The Story of Scurvy"
 subtitle: "Three understandings of the data generating process"
 format:
-  html: default
+  html:
+    include-in-header:
+      text: |
+        <style>
+        #cell-dag-2-misguided, #cell-dag-3-1928 { margin-top: 48px; }
+        </style>
 execute:
   echo: false
   eval: true
@@ -108,8 +113,7 @@ pgm.add_edge("bacteria", "scurvy", plot_params={'color': '#C62828', 'linewidth':
 
 pgm.render()
 plt.subplots_adjust(top=0.78)
-plt.suptitle("Updated Bacterial Theory (Late 19th Century) — incorrect", fontsize=12, fontweight='medium', y=0.98, color='#BF360C')
-plt.tight_layout()
+plt.suptitle("Updated Bacterial Theory (Late 19th Century) — incorrect", fontsize=12, fontweight='medium', y=1.2, color='#BF360C')
 plt.show()
 ```
 
@@ -161,7 +165,6 @@ pgm.add_edge("collagen", "scurvy", plot_params={'color': '#37474F', 'linewidth':
 
 pgm.render()
 plt.subplots_adjust(top=0.75)
-plt.suptitle("Simplified Modern Understanding (1930s onwards)", fontsize=12, fontweight='medium', y=0.97, color='#263238')
-plt.tight_layout()
+plt.suptitle("Simplified Modern Understanding (1930s onwards)", fontsize=12, fontweight='medium', y=1.27, color='#263238')
 plt.show()
 ```
